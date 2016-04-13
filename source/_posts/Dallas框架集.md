@@ -1,6 +1,6 @@
 ---
 title: Dallas框架集
-tags:
+tags: [iOS]
 ---
 #iOS Dallas构架
 ##前言
