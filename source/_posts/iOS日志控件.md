@@ -1,5 +1,5 @@
 ---
-title: iOS日志格式化输出
+title: iOS日志控件
 tags: [iOS,log] 
 categories: iOS控件集
 ---
