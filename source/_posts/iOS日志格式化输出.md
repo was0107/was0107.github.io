@@ -1,6 +1,7 @@
 ---
 title: iOS日志格式化输出
-tags: [iOS,log]
+tags: [iOS,log] 
+categories: iOS控件集
 ---
 #MLogFramework
 ##前言

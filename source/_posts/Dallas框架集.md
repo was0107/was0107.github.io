@@ -1,6 +1,7 @@
 ---
 title: Dallas框架集
 tags: [iOS]
+categories: iOS控件集
 ---
 #iOS Dallas构架
 ##前言

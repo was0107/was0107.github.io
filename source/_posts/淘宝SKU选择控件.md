@@ -1,6 +1,7 @@
 ---
 title: 淘宝SKU控件
 tags: [iOS,sku] 
+categories: iOS控件集
 ---
 # MSKUFramework
 [淘宝SKU控件GIT项目](https://github.com/was0107/MSKUFramework)
