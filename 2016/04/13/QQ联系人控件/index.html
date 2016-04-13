@@ -43,7 +43,7 @@
 			
 			<div id="textlogo">
 				<h1 class="site-name"><a href="/" title="micker">micker</a></h1>
-				<h2 class="blog-motto">欲速则不达</h2>
+				<h2 class="blog-motto">燃烧自己，照亮路人。大家好，我是Micker，欢迎来到我的世界，一起分享技术！</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
@@ -84,7 +84,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-04-13T03:59:21.000Z" itemprop="datePublished">2016-04-13</time>
-    更新日期:<time datetime="2016-04-13T04:29:09.000Z" itemprop="dateModified">2016-04-13</time>
+    更新日期:<time datetime="2016-04-13T13:48:03.000Z" itemprop="dateModified">2016-04-13</time>
     
   </p>
 </header>
@@ -111,17 +111,17 @@
 <p>##实现</p>
 <ul>
 <li><p>1、定义树型结构的节点，目前根节点和叶子节点共用同一个数据模型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@interface MTreeNode : NSObject</span><br><span class="line">@property (nonatomic, readwrite, assign) BOOL expand;  // 返回当前节点是否已经展开，默认为NO</span><br><span class="line">@property (nonatomic, readonly, assign) NSInteger depth; // 返回当前节点深度,默认为0，根节点为-1</span><br><span class="line">@property (nonatomic, readonly, weak) MTreeNode *parentNode; // 返回当前节点的爷节点</span><br><span class="line">@property (nonatomic, readwrite, strong) id content;    // 存储当前节点的数据模型</span><br><span class="line">@property (nonatomic, readwrite, strong) NSMutableArray *subNodes; // 存储当前节点的子节点集合</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithParent:(MTreeNode *) parent expand:(BOOL) expand;</span><br><span class="line">+ (instancetype)initWithParent:(MTreeNode *) parent expand:(BOOL) expand;</span><br><span class="line">- (void) toggle;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface MTreeNode : NSObject</span><br><span class="line">@property (nonatomic, readwrite, assign) BOOL expand;  // 返回当前节点是否已经展开，默认为NO</span><br><span class="line">@property (nonatomic, readonly, assign) NSInteger depth; // 返回当前节点深度,默认为0，根节点为-1</span><br><span class="line">@property (nonatomic, readonly, weak) MTreeNode *parentNode; // 返回当前节点的爷节点</span><br><span class="line">@property (nonatomic, readwrite, strong) id content;    // 存储当前节点的数据模型</span><br><span class="line">@property (nonatomic, readwrite, strong) NSMutableArray *subNodes; // 存储当前节点的子节点集合</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithParent:(MTreeNode *) parent expand:(BOOL) expand;</span><br><span class="line">+ (instancetype)initWithParent:(MTreeNode *) parent expand:(BOOL) expand;</span><br><span class="line">- (void) toggle;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>2、由以上的数据结构可知，当前节点的subNodes仅保存了当前节点的信息，对于其子孙节点信息均未能呈现，需要另外定义一个数据来进行管理，为不混淆当前节点的子节点与子孙节点，另使用<code>Category</code>来声明子孙节点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@interface MTreeNode (ExpandNode)</span><br><span class="line">@property (nonatomic, strong) NSMutableArray *expandNodes;      //存储当前节点之下展开的节点</span><br><span class="line"></span><br><span class="line">- (NSArray *) getSubExpandNodes;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface MTreeNode (ExpandNode)</span><br><span class="line">@property (nonatomic, strong) NSMutableArray *expandNodes;      //存储当前节点之下展开的节点</span><br><span class="line"></span><br><span class="line">- (NSArray *) getSubExpandNodes;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>3、<code>MTreeView</code>继承<code>UITableView</code>，声明一个根节点，及相应的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">@interface MTreeView : UITableView</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readwrite, strong) MTreeNode *rootNode;           //根节点</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readwrite, weak) IBOutlet id&lt;MTreeViewDelegate&gt; treeViewDelegate;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  返回根节点的子节点数，即深度为0的节点数</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *</span><br><span class="line"> *  @return 根节点的子节点数</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (NSInteger) numberOfSectionsInTreeView:(MTreeView *)treeView;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  返回深度为0的所有子孙节点数</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  section</span><br><span class="line"> *</span><br><span class="line"> *  @return 深度为0的所有子孙节点数</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (NSInteger) treeView:(MTreeView *)treeView numberOfRowsInSection:(NSInteger)section;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  展开或者折叠当前节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  indexPath   当row为负数时，则表示展开一级节点，即对应的Section点击事件处理</span><br><span class="line"> *</span><br><span class="line"> *  @return</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) expandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  获取指定path对应的节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  indexPath   当row为负数时，则表示获取一级节点</span><br><span class="line"> *</span><br><span class="line"> *  @return 对应的节点</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (MTreeNode *) nodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line">	</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface MTreeView : UITableView</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readwrite, strong) MTreeNode *rootNode;           //根节点</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readwrite, weak) IBOutlet id&lt;MTreeViewDelegate&gt; treeViewDelegate;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  返回根节点的子节点数，即深度为0的节点数</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *</span><br><span class="line"> *  @return 根节点的子节点数</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (NSInteger) numberOfSectionsInTreeView:(MTreeView *)treeView;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  返回深度为0的所有子孙节点数</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  section</span><br><span class="line"> *</span><br><span class="line"> *  @return 深度为0的所有子孙节点数</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (NSInteger) treeView:(MTreeView *)treeView numberOfRowsInSection:(NSInteger)section;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  展开或者折叠当前节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  indexPath   当row为负数时，则表示展开一级节点，即对应的Section点击事件处理</span><br><span class="line"> *</span><br><span class="line"> *  @return</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) expandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  获取指定path对应的节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  indexPath   当row为负数时，则表示获取一级节点</span><br><span class="line"> *</span><br><span class="line"> *  @return 对应的节点</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (MTreeNode *) nodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line">	</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <p>  首先需要弄清楚，树型结构上的各节点，在UITableView是如何进行布局的，<br>  根节点（深度为-1）管理所有数据，在界面上不呈现；<br>  0级节点（深度为0）管理一级数据，对应的是Section数据；<br>  一..N级节点（深度为1..n），对应的是<code>UITableViewCell</code>，进行呈现；<code>UITableViewCell</code>根据深度，进行UI及逻辑的控制；</p>
 </li>
 <li><p>4、在构造树的数据时，为满足叶子节点可动态增加，及动画处理，故在此设计一个回调，供业务方进行使用；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@protocol MTreeViewDelegate &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@optional</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  即将展开/关闭子节点，此代理可以动态加载子节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  indexPath</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) treeView:(MTreeView *)treeView willexpandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  已经展开/关闭子节点，此代理可以于此进行动画效果的设置</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  indexPath</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) treeView:(MTreeView *)treeView didexpandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@protocol MTreeViewDelegate &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@optional</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  即将展开/关闭子节点，此代理可以动态加载子节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  indexPath</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) treeView:(MTreeView *)treeView willexpandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  已经展开/关闭子节点，此代理可以于此进行动画效果的设置</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  indexPath</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) treeView:(MTreeView *)treeView didexpandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>##测试<br>提供三种测试情况，一为随机组织数据，二为QQ联系人界面，三为沙盒文件查看，其中前两者数据为静态数据，沙盒数据由点击查看进行数据的动态生成，且仅生成一次。效果请参照下图</p>
@@ -135,6 +135,16 @@
 	</div>
 		<footer class="article-footer clearfix">
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/tree/">tree</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS控件集/">iOS控件集</a>
+</div>
 
 
 
@@ -200,8 +210,38 @@ var duoshuoQuery = {short_name:"was0107"};
 <aside class="clearfix">
 
   
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/iOS控件集/" title="iOS控件集">iOS控件集<sup>5</sup></a></li>
+		
+		</ul>
+</div>
+
 
   
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/dallas/" title="dallas">dallas<sup>1</sup></a></li>
+		
+			<li><a href="/tags/debug/" title="debug">debug<sup>1</sup></a></li>
+		
+			<li><a href="/tags/iOS/" title="iOS">iOS<sup>5</sup></a></li>
+		
+			<li><a href="/tags/log/" title="log">log<sup>1</sup></a></li>
+		
+			<li><a href="/tags/sandbox/" title="sandbox">sandbox<sup>1</sup></a></li>
+		
+			<li><a href="/tags/sku/" title="sku">sku<sup>1</sup></a></li>
+		
+			<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
 
   <div class="linkslist">
   <p class="asidetitle">友情链接</p>
@@ -218,7 +258,7 @@ var duoshuoQuery = {short_name:"was0107"};
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">1</span></li></ul>
   </div>
 
 

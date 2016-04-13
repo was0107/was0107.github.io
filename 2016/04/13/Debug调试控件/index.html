@@ -4,20 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Dallas框架集 | micker</title>
+    <title>Debug调试控件 | micker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="micker">
     
-    <meta name="description" content="#iOS Dallas构架
+    <meta name="description" content="#Debug调试模块
 ##前言
 
-Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要将业务进行拆分，开发更多独立的模块，dallas的初衷就是为了实现这样的需求；##设计原则
-所有模块的设计，需要满足六大原则，
-1、单一职责原则
-2、里氏替换原则
-3、依赖倒置原则
-4、接口隔">
+MDebugFramework，为实现离线调试当前APP沙盒中的内容、环境的切换而生；
+
+##简介
+
+1、支持动态添加Debug入口，通过配置debug.plist实现;
+2、内嵌Host环境切换功能，提供online\prod\stage三种切换，仅下次启动生效;">
     
     
     
@@ -75,15 +75,15 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/04/13/Dallas框架集/" title="Dallas框架集" itemprop="url">Dallas框架集</a>
+      <a href="/2016/04/13/Debug调试控件/" title="Debug调试控件" itemprop="url">Debug调试控件</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://was0107.github.io" title="micker">micker</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-04-13T07:13:57.000Z" itemprop="datePublished">2016-04-13</time>
-    更新日期:<time datetime="2016-04-13T15:10:26.000Z" itemprop="dateModified">2016-04-13</time>
+    <time datetime="2016-04-13T15:05:18.000Z" itemprop="datePublished">2016-04-13</time>
+    更新日期:<time datetime="2016-04-13T15:06:24.000Z" itemprop="dateModified">2016-04-13</time>
     
   </p>
 </header>
@@ -95,79 +95,36 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 		
 		</div>
 		
-		<p>#iOS Dallas构架</p>
+		<p>#Debug调试模块</p>
 <p>##前言</p>
 <ul>
-<li><code>Dallas</code>，取名来源于NBA，为满足未来开发多款APP的需求，需要将业务进行拆分，开发更多独立的模块，dallas的初衷就是为了实现这样的需求；<br>##设计原则</li>
-<li>所有模块的设计，需要满足六大原则，</li>
-<li>1、单一职责原则</li>
-<li>2、里氏替换原则</li>
-<li>3、依赖倒置原则</li>
-<li>4、接口隔离原则</li>
-<li>5、迪米特法则</li>
-<li>6、开闭原则<br>##一、概述</li>
-<li>1、此工程主要放置基础控件的管理库，对外仅提供Framework,.a包；</li>
-<li>2、一级目录仅存放文件夹；且一级目录下面亦需要提供README.md文件，<br>   用于描述此文件所提供的模块，越详尽越好；</li>
-<li>3、所有子工程，提供三个Targets，<code>Framework</code>、<code>Aggregate</code>、<code>TestApp</code>，其中测试APP，均可以独立运行；</li>
-<li>4、关于命名，所有模块的命名，均以M开头，以Framework结尾；</li>
-<li>5、关于注释，请使用<code>VVDocumenter</code>进行描述的添加；</li>
-<li>6、关于代码规范，请参阅 <a href="http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml" target="_blank" rel="external">http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml</a></li>
-<li>7、本工程的管理，基于Submodule，更新及下载请使用如下命令<code>git submoduel update --init --recursive</code></li>
+<li><a href="https://github.com/was0107/MDebugFramework" target="_blank" rel="external">MDebugFramework</a>，为实现离线调试当前APP沙盒中的内容、环境的切换而生；</li>
 </ul>
-<p>##、子工程（排名不分先后）</p>
-<table>
-<thead>
-<tr>
-<th>模块名称</th>
-<th>工程</th>
-<th>使用中的APP</th>
-<th>备注</th>
-<th style="text-align:right">作者</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>QQ联系人控件</td>
-<td>MTreeFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-<tr>
-<td>淘宝SKU控件</td>
-<td>MSKUFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-<tr>
-<td>日志输出控件</td>
-<td>MLogFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-<tr>
-<td>Debug控件</td>
-<td>MDebugFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-</tbody>
-</table>
-<p>##三、发布</p>
+<p>##简介</p>
 <ul>
-<li>所有子Framework的，可以根据需求，进行单独编译</li>
+<li>1、支持动态添加Debug入口，通过配置debug.plist实现;</li>
+<li>2、内嵌Host环境切换功能，提供online\prod\stage三种切换，仅下次启动生效;具体环境下的业务逻辑，本库不涉及，由业务方进行实现；</li>
+<li>3、支持沙盒查看，文件夹、文件（plist\txt\mp3\png\jpg）</li>
+<li>4、在使用过程中，一定要注意Debug.bundle中的文件，特别是debug.plist文件中的内容，不同APP配置可能不一样。</li>
+<li>5、Host默认环境为stage环境;</li>
 </ul>
-<p>##四、博客<br><a href="http://micker.cn" target="_blank" rel="external">Micker.cn</a></p>
+<p>##使用说明<br><code>MDebug</code>提供单例方法，在初次调用时，即会将当前的环境情况输出到控制台，方便调试<br><figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  设置Debug呼出样式</span><br><span class="line"> *</span><br><span class="line"> *  @<span class="keyword">return</span></span><br><span class="line"> *<span class="regexp">/</span><br><span class="line">- (void)invocationEvent:(MDebugInvocationEvent)invocationEvent;</span><br><span class="line"></span><br><span class="line">/</span>**</span><br><span class="line"> *  返回当前的环境类型，具体的逻辑判断，由业务方进行逻辑处理</span><br><span class="line"> *</span><br><span class="line"> *  @<span class="keyword">return</span> 仅在debug模式下有用，在release环境下，返回为<span class="literal">nil</span>;</span><br><span class="line"> *<span class="regexp">/</span><br><span class="line">- (MDebug_ENV_TYPE) currentEnv;</span><br><span class="line"></span><br><span class="line">/</span>**</span><br><span class="line"> *  当前环境值</span><br><span class="line"> *</span><br><span class="line"> *  @<span class="keyword">return</span> 当前环境的字符串，用于输出</span><br><span class="line"> *<span class="regexp">/</span><br><span class="line">- (NSString *) currentEnvString;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>MDebug</code>的调用方式</p>
+<ul>
+<li><p>1、全局模式，在主窗体展示之后，进行设置</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">[MDebug <span class="keyword">sharedInstance].parentViewController </span>= self<span class="comment">;</span></span><br><span class="line">[[MDebug <span class="keyword">sharedInstance] </span>invocationEvent:MDebugInvocationEventBubble]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、内嵌模式，在某一个页面单独设置</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">[MDebug sharedInstance].parentViewController = self;</span><br><span class="line">[self.view addSubview:<span class="string">[[MDebug sharedInstance] debugView]]</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/dallas/">dallas</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/debug/">debug</a><a href="/tags/sandbox/">sandbox</a>
   </div>
 
 
@@ -180,7 +137,7 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 
 <div class="article-share" id="share">
 
-  <div data-url="http://was0107.github.io/2016/04/13/Dallas框架集/" data-title="Dallas框架集 | micker" data-tsina="null" class="share clearfix">
+  <div data-url="http://was0107.github.io/2016/04/13/Debug调试控件/" data-title="Debug调试控件 | micker" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -189,19 +146,11 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/04/13/iOS日志控件/" title="iOS日志控件">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  iOS日志控件</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/04/13/淘宝SKU选择控件/"  title="淘宝SKU控件">
+<a href="/2016/04/13/iOS日志控件/"  title="iOS日志控件">
  <strong>NEXT:</strong><br/> 
- <span>淘宝SKU控件
+ <span>iOS日志控件
 </span>
 </a>
 </div>
@@ -209,8 +158,8 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 </nav>
 
 	
-<!-- 多说评论框 start 把你默认配置中的修改成 data-thread-key="2016/04/13/Dallas框架集/" data-title="Dallas框架集" data-url="http://was0107.github.io/2016/04/13/Dallas框架集/ 我这句 下面的<script type="text/javascript">...这中间的代码是你从多说中复制出来的每个人的都不同复制自己的就好~ </script>-->	
-	<div class="ds-thread" data-thread-key="2016/04/13/Dallas框架集/" data-title="Dallas框架集" data-url="http://was0107.github.io/2016/04/13/Dallas框架集/"></div>
+<!-- 多说评论框 start 把你默认配置中的修改成 data-thread-key="2016/04/13/Debug调试控件/" data-title="Debug调试控件" data-url="http://was0107.github.io/2016/04/13/Debug调试控件/ 我这句 下面的<script type="text/javascript">...这中间的代码是你从多说中复制出来的每个人的都不同复制自己的就好~ </script>-->	
+	<div class="ds-thread" data-thread-key="2016/04/13/Debug调试控件/" data-title="Debug调试控件" data-url="http://was0107.github.io/2016/04/13/Debug调试控件/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
