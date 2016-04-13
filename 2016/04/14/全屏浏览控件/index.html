@@ -4,21 +4,18 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>淘宝SKU控件 | micker</title>
+    <title>全屏浏览控件 | micker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="micker">
     
-    <meta name="description" content="MSKUFramework淘宝SKU控件GIT项目
-##需求
+    <meta name="description" content="#MFullScreenFramework控件
+##前言MFullScreenFramework,为实现淘宝中的商品详情页面中， 图片点击全屏展示而设计
+##简介
 
-模仿淘宝SKU的选择页面，实现商品的SKU选择；
-
-##分析
-
-商品图片、价格、库存、当前选择项、能根据SKU的选中项进行更改；
-商品图片、价格、库存、当前选择项、SKU选择项能跟随键盘作动画处理；
-购买数量能根据当前SKU的库存，进行">
+支持任意视图的循环复用;
+支持滚动视图自动添加Page展示;
+支持图片视图的手势放大及缩小；此子视图已经进行了封装，即代码中的MFul">
     
     
     
@@ -76,15 +73,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/04/13/淘宝SKU选择控件/" title="淘宝SKU控件" itemprop="url">淘宝SKU控件</a>
+      <a href="/2016/04/14/全屏浏览控件/" title="全屏浏览控件" itemprop="url">全屏浏览控件</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://was0107.github.io" title="micker">micker</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-04-13T04:21:30.000Z" itemprop="datePublished">2016-04-13</time>
-    更新日期:<time datetime="2016-04-13T13:47:51.000Z" itemprop="dateModified">2016-04-13</time>
+    <time datetime="2016-04-13T17:10:02.000Z" itemprop="datePublished">2016-04-14</time>
+    更新日期:<time datetime="2016-04-13T17:11:30.000Z" itemprop="dateModified">2016-04-14</time>
     
   </p>
 </header>
@@ -93,41 +90,28 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MSKUFramework"><span class="toc-number">1.</span> <span class="toc-text">MSKUFramework</span></a></li></ol>
+		
 		</div>
 		
-		<h1 id="MSKUFramework"><a href="#MSKUFramework" class="headerlink" title="MSKUFramework"></a>MSKUFramework</h1><p><a href="https://github.com/was0107/MSKUFramework" target="_blank" rel="external">淘宝SKU控件GIT项目</a></p>
-<p>##需求</p>
+		<p>#MFullScreenFramework控件</p>
+<p>##前言<br><a href="https://github.com/was0107/MFullScreenFramewok" target="_blank" rel="external">MFullScreenFramework</a>,为实现淘宝中的商品详情页面中， 图片点击全屏展示而设计</p>
+<p>##简介</p>
 <ul>
-<li>模仿淘宝SKU的选择页面，实现商品的SKU选择；</li>
+<li>支持任意视图的循环复用;</li>
+<li>支持滚动视图自动添加Page展示;</li>
+<li>支持图片视图的手势放大及缩小；此子视图已经进行了封装，即代码中的<code>MFullScreenView</code></li>
+<li>支持展开、关闭以动画形式进行；</li>
+<li>支持设置子视图之间的间隙；</li>
 </ul>
-<p>##分析</p>
-<ul>
-<li>商品图片、价格、库存、当前选择项、能根据SKU的选中项进行更改；</li>
-<li>商品图片、价格、库存、当前选择项、SKU选择项能跟随键盘作动画处理；</li>
-<li>购买数量能根据当前SKU的库存，进行动态设置，且能对进行友好输入；</li>
-</ul>
-<p>##实现</p>
-<ul>
-<li><code>NumberChooseControl</code>控件的自定义，主要对购买数量进行逻辑处理</li>
-<li><code>SKUControl</code>根据商品的属性进行动态设置，需要提供接口供外部进行动态更改；鉴于SKU的选中项需求的不确定性，故开放给业务方，进行数据填充</li>
-</ul>
-<p>##测试</p>
-<ul>
-<li>目前SKU选项，由<code>UIButton</code>生成，具体效果请参阅下图<br><img src="https://raw.githubusercontent.com/was0107/MSKUFramework/master/images/sku.gif" width="50%"></li>
-</ul>
-<p>##使用</p>
-<ul>
-<li>1、此项目依赖SDK最低版本为7.0；</li>
-<li>2、在工程中引入MSKUFramework.framework即可使用；</li>
-</ul>
+<p>##举例<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">- (MFullScreenControl *) control &#123;</span><br><span class="line">    <span class="keyword">if</span>(!_control) &#123;</span><br><span class="line">        _control = [[MFullScreenControl  alloc] init];</span><br><span class="line">        _control.screenPageView.delegate = <span class="keyword">self</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _control;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>) imageView2DidTaped:(<span class="built_in">UIGestureRecognizer</span> *) recognizer &#123;</span><br><span class="line">    <span class="keyword">self</span>.control.screenPageView.currentIndex = recognizer.view.tag - <span class="number">10000</span>;</span><br><span class="line">    [<span class="keyword">self</span>.control appearOnView:recognizer.view];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSUInteger</span>) numberOfView:(<span class="built_in">UIScrollPageControlView</span> *) control &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIView</span> *) configItemOfControl:(<span class="built_in">UIScrollPageControlView</span> *) control at:(<span class="built_in">NSUInteger</span>) index  &#123;</span><br><span class="line">    <span class="built_in">UIImageView</span> *cellItem = (<span class="built_in">UIImageView</span> *)[control dequeueReusableViewWithIdentifier:<span class="string">@"reuse"</span>];</span><br><span class="line">    <span class="built_in">NSString</span> *reuse = <span class="string">@"复用来的"</span>;</span><br><span class="line">    <span class="built_in">UILabel</span> *label  = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">if</span> (!cellItem) &#123;</span><br><span class="line">        cellItem = [[<span class="built_in">UIImageView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">self</span>.view.bounds.size.width, <span class="keyword">self</span>.view.bounds.size.width)];</span><br><span class="line">        cellItem.userInteractionEnabled = <span class="literal">YES</span>;</span><br><span class="line">        [cellItem addGestureRecognizer:[[<span class="built_in">UITapGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(disappear:)]];</span><br><span class="line">        cellItem.backgroundColor  = [<span class="built_in">UIColor</span> colorWithWhite:<span class="number">0.7</span>f alpha:<span class="number">0.4</span>f];</span><br><span class="line">        cellItem.reuseIdentifier = <span class="string">@"reuse"</span>;</span><br><span class="line">        label = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">self</span>.view.bounds.size.width, <span class="keyword">self</span>.view.bounds.size.width)];</span><br><span class="line">        reuse = <span class="string">@"=====新生成的"</span>;</span><br><span class="line">        label.textAlignment = <span class="built_in">NSTextAlignmentCenter</span>;</span><br><span class="line">        label.tag = <span class="number">1000</span>;</span><br><span class="line">        [cellItem addSubview:label];</span><br><span class="line">        [cellItem enableDoubleTap:<span class="literal">YES</span>];</span><br><span class="line">        cellItem.singleTapBlock = ^(<span class="built_in">UIGestureRecognizer</span> * recognizer) &#123;</span><br><span class="line">            [_control disAppearOnView:recognizer.view];</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        label = (<span class="built_in">UILabel</span> *) [cellItem viewWithTag:<span class="number">1000</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    label.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"item = %ld || reuse = %@"</span>, index,reuse];</span><br><span class="line">    <span class="keyword">return</span> cellItem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>##效果图展示<br>为更好的展示效果，GIF图片使用了黑白效果<br><img src="https://raw.githubusercontent.com/was0107/MFullScreenFramework/master/images/full.gif" width="50%"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/sku/">sku</a>
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/全屏/">全屏</a>
   </div>
 
 
@@ -140,7 +124,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://was0107.github.io/2016/04/13/淘宝SKU选择控件/" data-title="淘宝SKU控件 | micker" data-tsina="null" class="share clearfix">
+  <div data-url="http://was0107.github.io/2016/04/14/全屏浏览控件/" data-title="全屏浏览控件 | micker" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -150,18 +134,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/04/13/Dallas框架集/" title="Dallas框架集">
+ <a href="/2016/04/14/淘宝商品详情控件/" title="淘宝商品详情控件">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  Dallas框架集</span>
+  淘宝商品详情控件</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/04/13/QQ联系人控件/"  title="QQ联系人控件">
+<a href="/2016/04/13/Debug调试控件/"  title="Debug调试控件">
  <strong>NEXT:</strong><br/> 
- <span>QQ联系人控件
+ <span>Debug调试控件
 </span>
 </a>
 </div>
@@ -169,8 +153,8 @@
 </nav>
 
 	
-<!-- 多说评论框 start 把你默认配置中的修改成 data-thread-key="2016/04/13/淘宝SKU选择控件/" data-title="淘宝SKU控件" data-url="http://was0107.github.io/2016/04/13/淘宝SKU选择控件/ 我这句 下面的<script type="text/javascript">...这中间的代码是你从多说中复制出来的每个人的都不同复制自己的就好~ </script>-->	
-	<div class="ds-thread" data-thread-key="2016/04/13/淘宝SKU选择控件/" data-title="淘宝SKU控件" data-url="http://was0107.github.io/2016/04/13/淘宝SKU选择控件/"></div>
+<!-- 多说评论框 start 把你默认配置中的修改成 data-thread-key="2016/04/14/全屏浏览控件/" data-title="全屏浏览控件" data-url="http://was0107.github.io/2016/04/14/全屏浏览控件/ 我这句 下面的<script type="text/javascript">...这中间的代码是你从多说中复制出来的每个人的都不同复制自己的就好~ </script>-->	
+	<div class="ds-thread" data-thread-key="2016/04/14/全屏浏览控件/" data-title="全屏浏览控件" data-url="http://was0107.github.io/2016/04/14/全屏浏览控件/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -192,7 +176,7 @@ var duoshuoQuery = {short_name:"was0107"};
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MSKUFramework"><span class="toc-number">1.</span> <span class="toc-text">MSKUFramework</span></a></li></ol>
+  
   </div>
 
 <div id="asidepart">
