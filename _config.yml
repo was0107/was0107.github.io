@@ -70,5 +70,5 @@ theme: custom
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/was0107/was0107.github.io.git
+  repository: git@github.com:was0107/was0107.github.io.git
   branch: master
