@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title:	micker
-subtitle:	欲速则不达
+title: micker
+subtitle: 欲速则不达
 description:
 author: micker
 language: zh-CN
-email:	goodluck.was@gmail.com
-timezone:
+email: goodluck.was@gmail.com
+timezone: zh-CN
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
