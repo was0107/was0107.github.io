@@ -4,20 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Dallas框架集 | micker</title>
+    <title>Section导航控件 | micker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="micker">
     
-    <meta name="description" content="#iOS Dallas构架
-##前言
+    <meta name="description" content="#MSectionFramework控件
+##前言MSectionFramework,为实现Section的导航控件，目前大量APP中均有使用到此效果，如网易新闻的分类，淘宝中的微淘、社区，天猫中的关注、范儿等等；
+##简介
 
-Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要将业务进行拆分，开发更多独立的模块，dallas的初衷就是为了实现这样的需求；##设计原则
-所有模块的设计，需要满足六大原则，
-1、单一职责原则
-2、里氏替换原则
-3、依赖倒置原则
-4、接口隔">
+1、此包提供Section的Framework及testSection；">
     
     
     
@@ -75,15 +71,15 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/04/13/Dallas框架集/" title="Dallas框架集" itemprop="url">Dallas框架集</a>
+      <a href="/2016/06/13/Section导航控件/" title="Section导航控件" itemprop="url">Section导航控件</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://was0107.github.io" title="micker">micker</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-04-13T07:13:57.000Z" itemprop="datePublished">2016-04-13</time>
-    更新日期:<time datetime="2016-04-13T16:03:54.000Z" itemprop="dateModified">2016-04-14</time>
+    <time datetime="2016-06-13T02:56:44.000Z" itemprop="datePublished">2016-06-13</time>
+    更新日期:<time datetime="2016-06-13T02:58:52.000Z" itemprop="dateModified">2016-06-13</time>
     
   </p>
 </header>
@@ -95,86 +91,28 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 		
 		</div>
 		
-		<p>#iOS Dallas构架</p>
-<p>##前言</p>
+		<p>#MSectionFramework控件</p>
+<p>##前言<br><a href="https://github.com/was0107/MSectionFramework" target="_blank" rel="external">MSectionFramework</a>,为实现Section的导航控件，目前大量APP中均有使用到此效果，<br>如网易新闻的分类，淘宝中的微淘、社区，天猫中的关注、范儿等等；</p>
+<p>##简介</p>
 <ul>
-<li><a href="https://github.com/was0107/dallas" target="_blank" rel="external">Dallas</a>，取名来源于NBA，为满足未来开发多款APP的需求，需要将业务进行拆分，开发更多独立的模块，dallas的初衷就是为了实现这样的需求；<br>##设计原则</li>
-<li>所有模块的设计，需要满足六大原则，</li>
-<li>1、单一职责原则</li>
-<li>2、里氏替换原则</li>
-<li>3、依赖倒置原则</li>
-<li>4、接口隔离原则</li>
-<li>5、迪米特法则</li>
-<li>6、开闭原则<br>##一、概述</li>
-<li>1、此工程主要放置基础控件的管理库，对外仅提供Framework,.a包；</li>
-<li>2、一级目录仅存放文件夹；且一级目录下面亦需要提供README.md文件，<br>   用于描述此文件所提供的模块，越详尽越好；</li>
-<li>3、所有子工程，提供三个Targets，<code>Framework</code>、<code>Aggregate</code>、<code>TestApp</code>，其中测试APP，均可以独立运行；</li>
-<li>4、关于命名，所有模块的命名，均以M开头，以Framework结尾；</li>
-<li>5、关于注释，请使用<code>VVDocumenter</code>进行描述的添加；</li>
-<li>6、关于代码规范，请参阅 <a href="http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml" target="_blank" rel="external">http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml</a></li>
-<li>7、本工程的管理，基于Submodule，更新及下载请使用如下命令<code>git submoduel update --init --recursive</code></li>
+<li>1、此包提供Section的Framework及testSection；</li>
+<li>2、支持标题颜色渐变过渡，标题的缩放，支持指示条的透明度及蛇形渐进；</li>
+<li>3、支持设置每屏的展示数目，用于在大、小屏之间的转换；</li>
+<li>4、支持当前选中之后的回调，delegate或者block均可；</li>
+<li>5、支持关联到基于UIScrollView的控件，如UICollectionView、UIScrollView；</li>
 </ul>
-<p>##、子工程（排名不分先后）</p>
-<table>
-<thead>
-<tr>
-<th>模块名称</th>
-<th>工程</th>
-<th>使用中的APP</th>
-<th>备注</th>
-<th style="text-align:right">作者</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>QQ联系人控件</td>
-<td>MTreeFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-<tr>
-<td>淘宝SKU控件</td>
-<td>MSKUFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-<tr>
-<td>日志输出控件</td>
-<td>MLogFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-<tr>
-<td>Debug控件</td>
-<td>MDebugFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-<tr>
-<td>全屏浏览控件</td>
-<td>MFullScreenFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-<tr>
-<td>淘宝商详控件</td>
-<td>MDetailFramework</td>
-<td></td>
-<td></td>
-<td style="text-align:right">Micker</td>
-</tr>
-</tbody>
-</table>
-<p>##三、发布</p>
+<p>##依赖</p>
 <ul>
-<li>所有子Framework的，可以根据需求，进行单独编译</li>
+<li>1、无</li>
 </ul>
-<p>##四、博客<br><a href="http://micker.cn" target="_blank" rel="external">Micker.cn</a></p>
+<p>##说明</p>
+<ul>
+<li>1、支持的动画类型如下，另默认情况是全部包含，亦可以通过自定义动画类型组合，选择合适的效果；<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="type">NS_ENUM</span> (<span class="type">NSUInteger</span> , <span class="type">M_SECTION_ANIMATE_TYPE</span>) &#123;</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_TEXT_COLOR</span> = 1 &lt;&lt; 0,       //文本颜色</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_TEXT_TRANSFORM</span> = 1 &lt;&lt; 1,   //文本变换</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_INDICATOR_ALPHA</span> = 1 &lt;&lt; 2,  //指示条透明度</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_INDICATOR_SNAKE</span> = 1 &lt;&lt; 3,  //指示条蛇形增长</span><br><span class="line">    </span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_DEFAULT</span> =                  //默认值</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_TEXT_COLOR</span> |</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_TEXT_TRANSFORM</span> |</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_INDICATOR_ALPHA</span> |</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_INDICATOR_SNAKE</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##举例</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (MSectionView *) sectionView &#123;</span><br><span class="line">    if (!_sectionView) &#123;</span><br><span class="line">        _sectionView = [[MSectionView alloc] initWithFrame:CGRectMake(<span class="number">0</span>, <span class="number">0</span>, CGRectGetWidth(self.view.<span class="keyword">bounds), </span><span class="number">50</span>)]<span class="comment">;</span></span><br><span class="line">        _sectionView.<span class="keyword">backgroundColor </span>= [UIColor clearColor]<span class="comment">;</span></span><br><span class="line">        [_sectionView <span class="keyword">beforColor:[UIColor </span>lightGrayColor] after:[UIColor yellowColor]]<span class="comment">;</span></span><br><span class="line">        _sectionView.observerView = self.collectionView<span class="comment">;</span></span><br><span class="line">        _sectionView.secionPerPage = <span class="number">7</span><span class="comment">;</span></span><br><span class="line">        _sectionView.indicatorLineView.<span class="keyword">backgroundColor </span>= [UIColor yellowColor]<span class="comment">;</span></span><br><span class="line">        __weak __typeof__(self) weakSelf = self<span class="comment">;</span></span><br><span class="line">        _sectionView.<span class="keyword">block </span>= ^(NSInteger index) &#123;</span><br><span class="line">            NSLog(@<span class="string">"当前选中项为[%@] = %@"</span>, @(index), weakSelf.datas[index])<span class="comment">;</span></span><br><span class="line">        &#125;<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    return _sectionView<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##效果图展示<br>为更好的展示效果，请耐心等待<br><img src="https://raw.githubusercontent.com/was0107/MSectionFramework/master/images/section.gif" width="50%"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -194,7 +132,7 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 
 <div class="article-share" id="share">
 
-  <div data-url="http://was0107.github.io/2016/04/13/Dallas框架集/" data-title="Dallas框架集 | micker" data-tsina="null" class="share clearfix">
+  <div data-url="http://was0107.github.io/2016/06/13/Section导航控件/" data-title="Section导航控件 | micker" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -203,19 +141,11 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/04/13/iOS日志控件/" title="iOS日志控件">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  iOS日志控件</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/04/13/淘宝SKU选择控件/"  title="淘宝SKU控件">
+<a href="/2016/04/14/淘宝商品详情控件/"  title="淘宝商品详情控件">
  <strong>NEXT:</strong><br/> 
- <span>淘宝SKU控件
+ <span>淘宝商品详情控件
 </span>
 </a>
 </div>
@@ -223,8 +153,8 @@ Dallas，取名来源于NBA，为满足未来开发多款APP的需求，需要�
 </nav>
 
 	
-<!-- 多说评论框 start 把你默认配置中的修改成 data-thread-key="2016/04/13/Dallas框架集/" data-title="Dallas框架集" data-url="http://was0107.github.io/2016/04/13/Dallas框架集/ 我这句 下面的<script type="text/javascript">...这中间的代码是你从多说中复制出来的每个人的都不同复制自己的就好~ </script>-->	
-	<div class="ds-thread" data-thread-key="2016/04/13/Dallas框架集/" data-title="Dallas框架集" data-url="http://was0107.github.io/2016/04/13/Dallas框架集/"></div>
+<!-- 多说评论框 start 把你默认配置中的修改成 data-thread-key="2016/06/13/Section导航控件/" data-title="Section导航控件" data-url="http://was0107.github.io/2016/06/13/Section导航控件/ 我这句 下面的<script type="text/javascript">...这中间的代码是你从多说中复制出来的每个人的都不同复制自己的就好~ </script>-->	
+	<div class="ds-thread" data-thread-key="2016/06/13/Section导航控件/" data-title="Section导航控件" data-url="http://was0107.github.io/2016/06/13/Section导航控件/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
