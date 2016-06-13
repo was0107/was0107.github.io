@@ -1,6 +1,6 @@
 ---
 title: iOS日志控件
-tags: [iOS,log] 
+tags: [iOS,log, dallas] 
 categories: iOS控件集
 ---
 #MLogFramework
