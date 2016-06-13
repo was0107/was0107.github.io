@@ -1,6 +1,6 @@
 ---
 title: Section导航控件
-tags: [iOS,dallas]
+tags: [iOS,section,dallas]
 categories: iOS控件集
 ---
 #MSectionFramework控件

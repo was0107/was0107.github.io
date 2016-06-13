@@ -1,6 +1,6 @@
 ---
 title: 淘宝SKU控件
-tags: [iOS,sku] 
+tags: [iOS,sku,dallas] 
 categories: iOS控件集
 ---
 # MSKUFramework
