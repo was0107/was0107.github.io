@@ -103,7 +103,7 @@
 2、支持标题颜色渐变过渡，标题的缩放，支持指示条的透明度及蛇形渐进；
 3、支持设置每屏的展示数目，">
 <meta property="og:image" content="https://raw.githubusercontent.com/was0107/MSectionFramework/master/images/section.gif">
-<meta property="og:updated_time" content="2016-06-13T05:08:36.000Z">
+<meta property="og:updated_time" content="2016-12-17T03:44:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Section导航控件">
 <meta name="twitter:description" content="#MSectionFramework控件
@@ -363,6 +363,8 @@
 <ul>
 <li>1、无</li>
 </ul>
+<a id="more"></a>
+<p>以下是余下全文</p>
 <p>##说明</p>
 <ul>
 <li>1、支持的动画类型如下，另默认情况是全部包含，亦可以通过自定义动画类型组合，选择合适的效果；<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="type">NS_ENUM</span> (<span class="type">NSUInteger</span> , <span class="type">M_SECTION_ANIMATE_TYPE</span>) &#123;</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_TEXT_COLOR</span> = 1 &lt;&lt; 0,       //文本颜色</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_TEXT_TRANSFORM</span> = 1 &lt;&lt; 1,   //文本变换</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_INDICATOR_ALPHA</span> = 1 &lt;&lt; 2,  //指示条透明度</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_INDICATOR_SNAKE</span> = 1 &lt;&lt; 3,  //指示条蛇形增长</span><br><span class="line">    </span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_DEFAULT</span> =                  //默认值</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_TEXT_COLOR</span> |</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_TEXT_TRANSFORM</span> |</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_INDICATOR_ALPHA</span> |</span><br><span class="line">    <span class="type">M_SECTION_ANIMATE_INDICATOR_SNAKE</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
