@@ -14,6 +14,9 @@ categories: iOS控件集
 *  提供Debug\Info\Warn\Error\Fatal\Frame\Size\Point\Vector九种快捷输出宏
 *  后续会增强此组件，可以定制输出到控制台，文件，网络等目地
 
+
+<!--more-->
+以下是余下全文
 ##参数说明
 
 宏定义

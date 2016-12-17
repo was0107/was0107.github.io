@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: micker
-subtitle: 燃烧自己，照亮路人。大家好，我是Micker，欢迎来到我的世界，一起分享技术！
+title: Micker
+subtitle: Hello, Micker！
 description:
 author: micker
-language: zh-CN
+language: zh-Hans
 email: goodluck.was@gmail.com
 timezone: zh-CN
 
@@ -64,7 +64,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: custom
+theme: next
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
