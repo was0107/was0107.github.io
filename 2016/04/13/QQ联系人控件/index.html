@@ -1,0 +1,435 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>QQ联系人控件 | Micker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="micker">
+    
+    <meta name="description" content="MTreeViewFramework树型结构的列表GIT项目
+##需求
+
+模仿QQ联系人页面，实现展开折叠效果；
+
+##分析
+
+很明显QQ的联系人界面，使用的是二层树型结构进行展示，另加上展开与折叠来进行当前节点及子节点是否展示；
+由于是列表类型，使用UITableView来进行列表展示再好不过，
+在分类折叠过程中，具有折叠效果，且具有吸附效果，可以使用UITableView的Section Header进行实现；
+由于是树型结构，故需要定义一个根节点，由根节点延伸出各子孙节点">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Micker" title="Micker"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Micker">Micker</a></h1>
+				<h2 class="blog-motto">Hello, Micker！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">存档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:was0107.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/13/QQ联系人控件/" title="QQ联系人控件" itemprop="url">QQ联系人控件</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://was0107.github.io" title="micker">micker</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-04-13T03:59:21.000Z" itemprop="datePublished">2016-04-13</time>
+    Updated:<time datetime="2016-12-17T03:44:52.000Z" itemprop="dateModified">2016-12-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MTreeViewFramework"><span class="toc-number">1.</span> <span class="toc-text">MTreeViewFramework</span></a></li></ol>
+		</div>
+		
+		<h1 id="MTreeViewFramework"><a href="#MTreeViewFramework" class="headerlink" title="MTreeViewFramework"></a>MTreeViewFramework</h1><p><a href="https://github.com/was0107/treeTableView" target="_blank" rel="external">树型结构的列表GIT项目</a></p>
+<p>##需求</p>
+<ul>
+<li>模仿QQ联系人页面，实现展开折叠效果；</li>
+</ul>
+<p>##分析</p>
+<ul>
+<li>很明显QQ的联系人界面，使用的是二层树型结构进行展示，另加上展开与折叠来进行当前节点及子节点是否展示；</li>
+<li>由于是列表类型，使用<code>UITableView</code>来进行列表展示再好不过，</li>
+<li>在分类折叠过程中，具有折叠效果，且具有吸附效果，可以使用<code>UITableView</code>的Section Header进行实现；</li>
+<li>由于是树型结构，故需要定义一个根节点，由根节点延伸出各子孙节点</li>
+</ul>
+<a id="more"></a>
+<p>以下是余下全文</p>
+<p>##实现</p>
+<ul>
+<li><p>1、定义树型结构的节点，目前根节点和叶子节点共用同一个数据模型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@interface MTreeNode : NSObject</span><br><span class="line">@property (nonatomic, readwrite, assign) BOOL expand;  // 返回当前节点是否已经展开，默认为NO</span><br><span class="line">@property (nonatomic, readonly, assign) NSInteger depth; // 返回当前节点深度,默认为0，根节点为-1</span><br><span class="line">@property (nonatomic, readonly, weak) MTreeNode *parentNode; // 返回当前节点的爷节点</span><br><span class="line">@property (nonatomic, readwrite, strong) id content;    // 存储当前节点的数据模型</span><br><span class="line">@property (nonatomic, readwrite, strong) NSMutableArray *subNodes; // 存储当前节点的子节点集合</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithParent:(MTreeNode *) parent expand:(BOOL) expand;</span><br><span class="line">+ (instancetype)initWithParent:(MTreeNode *) parent expand:(BOOL) expand;</span><br><span class="line">- (void) toggle;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、由以上的数据结构可知，当前节点的subNodes仅保存了当前节点的信息，对于其子孙节点信息均未能呈现，需要另外定义一个数据来进行管理，为不混淆当前节点的子节点与子孙节点，另使用<code>Category</code>来声明子孙节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@interface MTreeNode (ExpandNode)</span><br><span class="line">@property (nonatomic, strong) NSMutableArray *expandNodes;      //存储当前节点之下展开的节点</span><br><span class="line"></span><br><span class="line">- (NSArray *) getSubExpandNodes;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3、<code>MTreeView</code>继承<code>UITableView</code>，声明一个根节点，及相应的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">@interface MTreeView : UITableView</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readwrite, strong) MTreeNode *rootNode;           //根节点</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readwrite, weak) IBOutlet id&lt;MTreeViewDelegate&gt; treeViewDelegate;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  返回根节点的子节点数，即深度为0的节点数</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *</span><br><span class="line"> *  @return 根节点的子节点数</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (NSInteger) numberOfSectionsInTreeView:(MTreeView *)treeView;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  返回深度为0的所有子孙节点数</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  section</span><br><span class="line"> *</span><br><span class="line"> *  @return 深度为0的所有子孙节点数</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (NSInteger) treeView:(MTreeView *)treeView numberOfRowsInSection:(NSInteger)section;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  展开或者折叠当前节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  indexPath   当row为负数时，则表示展开一级节点，即对应的Section点击事件处理</span><br><span class="line"> *</span><br><span class="line"> *  @return</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) expandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  获取指定path对应的节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  indexPath   当row为负数时，则表示获取一级节点</span><br><span class="line"> *</span><br><span class="line"> *  @return 对应的节点</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (MTreeNode *) nodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line">	</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>  首先需要弄清楚，树型结构上的各节点，在UITableView是如何进行布局的，<br>  根节点（深度为-1）管理所有数据，在界面上不呈现；<br>  0级节点（深度为0）管理一级数据，对应的是Section数据；<br>  一..N级节点（深度为1..n），对应的是<code>UITableViewCell</code>，进行呈现；<code>UITableViewCell</code>根据深度，进行UI及逻辑的控制；</p>
+</li>
+<li><p>4、在构造树的数据时，为满足叶子节点可动态增加，及动画处理，故在此设计一个回调，供业务方进行使用；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@protocol MTreeViewDelegate &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@optional</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  即将展开/关闭子节点，此代理可以动态加载子节点</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  indexPath</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) treeView:(MTreeView *)treeView willexpandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  已经展开/关闭子节点，此代理可以于此进行动画效果的设置</span><br><span class="line"> *</span><br><span class="line"> *  @parames</span><br><span class="line"> *  @param  treeView</span><br><span class="line"> *  @param  indexPath</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">- (void) treeView:(MTreeView *)treeView didexpandNodeAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##测试<br>提供三种测试情况，一为随机组织数据，二为QQ联系人界面，三为沙盒文件查看，其中前两者数据为静态数据，沙盒数据由点击查看进行数据的动态生成，且仅生成一次。效果请参照下图</p>
+<p><img src="https://raw.githubusercontent.com/was0107/treeTableView/master/images/qq.gif" width="50%"><br><img src="https://raw.githubusercontent.com/was0107/treeTableView/master/images/file.gif" width="50%"></p>
+<p>##使用</p>
+<ul>
+<li>1、此项目依赖SDK最低版本为7.0；</li>
+<li>2、在工程中引入MTreeViewFramework.framework即可使用；</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a><a href="/tags/dallas/">dallas</a><a href="/tags/tree/">tree</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS控件集/">iOS控件集</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://was0107.github.io/2016/04/13/QQ联系人控件/" data-title="QQ联系人控件 | Micker" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/13/淘宝SKU选择控件/" title="淘宝SKU控件">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  淘宝SKU控件</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/03/29/hello-world/"  title="Hello World">
+ <strong>NEXT:</strong><br/> 
+ <span>Hello World
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<!-- 多说评论框 start 把你默认配置中的修改成 data-thread-key="2016/04/13/QQ联系人控件/" data-title="QQ联系人控件" data-url="http://was0107.github.io/2016/04/13/QQ联系人控件/ 我这句 下面的<script type="text/javascript">...这中间的代码是你从多说中复制出来的每个人的都不同复制自己的就好~ </script>-->	
+	<div class="ds-thread" data-thread-key="2016/04/13/QQ联系人控件/" data-title="QQ联系人控件" data-url="http://was0107.github.io/2016/04/13/QQ联系人控件/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"was0107"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MTreeViewFramework"><span class="toc-number">1.</span> <span class="toc-text">MTreeViewFramework</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+			<li><a href="/categories/iOS控件集/" title="iOS控件集">iOS控件集<sup>9</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/dallas/" title="dallas">dallas<sup>9</sup></a></li>
+		
+			<li><a href="/tags/debug/" title="debug">debug<sup>1</sup></a></li>
+		
+			<li><a href="/tags/detail/" title="detail">detail<sup>1</sup></a></li>
+		
+			<li><a href="/tags/iOS/" title="iOS">iOS<sup>9</sup></a></li>
+		
+			<li><a href="/tags/log/" title="log">log<sup>1</sup></a></li>
+		
+			<li><a href="/tags/sandbox/" title="sandbox">sandbox<sup>1</sup></a></li>
+		
+			<li><a href="/tags/section/" title="section">section<sup>1</sup></a></li>
+		
+			<li><a href="/tags/sku/" title="sku">sku<sup>1</sup></a></li>
+		
+			<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+		
+			<li><a href="/tags/全屏/" title="全屏">全屏<sup>2</sup></a></li>
+		
+			<li><a href="/tags/日历/" title="日历">日历<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+      <li><a href="http://micker.cn" target="_blank" title="Micker">Micker's Blog</a></li>
+    </ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS</a>
+</div>
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">Archives</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li></ul>
+  </div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 你好，我是Allen <br/>
+			这是我的博客，欢迎浏览</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		
+		
+		<a href="https://github.com/was0107" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://was0107.github.io" target="_blank" title="micker">micker</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"was0107"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>

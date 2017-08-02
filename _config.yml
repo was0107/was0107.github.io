@@ -8,6 +8,7 @@ subtitle: 欲速则不达
 description:
 author: micker
 language: zh-CN
+language: zh-Hans
 email: goodluck.was@gmail.com
 timezone: zh-CN
 
@@ -70,5 +71,5 @@ theme: custom
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/was0107/was0107.github.io.git
+  repository: git@github.com:was0107/was0107.github.io.git
   branch: master

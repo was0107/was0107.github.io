@@ -1,3 +1,9 @@
-title: about
-date: 2015-10-22 13:48:22
 ---
+title: About Micker
+---
+iOS Developer, Android Developer, 
+==
+
+gitlab：https://gitlab.com/was0107 
+email：goodluck.was@gmail.com 
+QQ：463092377
